@@ -26,7 +26,7 @@ img=double(imread('img.jpg'));      % read as shape:[height, width, channel]
 
 crop_size = [640, 512];     % height, width
 bayer_format = 'GBRG';      % Bayer pattern, Default: 'GBRG'
-frames = 5;                 % how many frames you want to save in the raw file
+frames = 5;                 % how many frames you want to save in the raw file. Set to 1 for development
 nbits = 12;                 % specify the precision of each saved pixel, 1-8 : uint8, 9-16 : uint16, etc.. | 12/14/16 is common
                             % if set to 8, please set blc (Line 99) to 0
 

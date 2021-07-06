@@ -17,3 +17,6 @@ A very simple implementation of Image Signal Processing pipeline, which contains
 
 ### demosaic_fn.m
 A collection of demosaic methods. At the moment, only 'bilinear' is implemented. Would support more in the future :)
+
+### readme.pptx
+Refer to this document to learn more details of bilinear demosaicing.

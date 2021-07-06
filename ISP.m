@@ -30,14 +30,17 @@ max_v = 2^nbits - 1;                            % Max value of the raw image
 
 %% Process
 % Black Level Correction
+% key formula: I = I - blc
 img_bayer = img_bayer - blc;
 img_bayer = min(max(img_bayer, 0), max_v);
 
 % Gain
+% key formula: I = I * gain
 img_bayer = round(img_bayer * d_gain);
 img_bayer = min(max(img_bayer, 0), max_v);
 
 % White Balance
+% key formula: I_r = I_r * gain_r ; I_g = I_g * gain_g ; I_b = I_b * gain_b
 switch bayer_format
     case 'GBRG'
         pos_R = [2,1]; pos_G1 = [1,1]; pos_G2 = [2,2]; pos_B = [1,2];
@@ -63,6 +66,7 @@ img_rgb = demosaic_fn(img_bayer, bayer_format, demosaic_method);
 img_rgb = min(max(double(img_rgb), 0), max_v);
 
 % Color Correction
+% key formula: I_r = I_r * a1 + I_g * a2 + I_b * a3, a1 + a2 + a3 = 1
 img_rgb_ccm = zeros(size(img_rgb));
 img_rgb_ccm(:,:,1)=img_rgb(:,:,1)*CCM(1,1)+img_rgb(:,:,2)*CCM(1,2)+img_rgb(:,:,3)*CCM(1,3);
 img_rgb_ccm(:,:,2)=img_rgb(:,:,1)*CCM(2,1)+img_rgb(:,:,2)*CCM(2,2)+img_rgb(:,:,3)*CCM(2,3);
@@ -71,6 +75,7 @@ img_rgb = round(img_rgb_ccm);
 img_rgb = min(max(img_rgb, 0), max_v);
 
 % Gamma
+% key formula: I = norm(I)^gamma * max_v
 img_rgb = (double(img_rgb)/max_v).^gamma_v;
 img_rgb = round(img_rgb*max_v);
 

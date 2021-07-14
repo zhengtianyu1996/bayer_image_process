@@ -59,11 +59,7 @@ for i = 1:frames
     
     %% Save result
     % Write each frame as RGB file
-    if strcmp(precision,'uint8')
-        imwrite(uint8(img_rgb), ['./img_rec_' opt.demosaic_method '_' num2str(i, '%03d') '.jpg']);
-    elseif strcmp(precision,'uint16')
-        imwrite(uint8(img_rgb/16), ['./img_rec_' opt.demosaic_method '_' num2str(i, '%03d') '.jpg']);
-    end
+    imwrite(uint8(img_rgb * 255 / max_v), ['./img_rec_' opt.demosaic_method '_' num2str(i, '%03d') '.jpg']);
 end
 
 fclose(fid);
